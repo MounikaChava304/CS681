@@ -22,15 +22,19 @@
 	<target name="init">
 		<mkdir dir="${bin}" />
 	</target>
-	<target name="test" depends="init">
+	<target name="compile" depends="init">
 		<javac srcdir="${src}" destdir="${bin}" includeAntRuntime="no">
 			<classpath refid="classpath" />
 		</javac>
 	</target>
-	<target name="clean" depends="test">
+	<target name="run" depends="compile">
+		<java classname="edu.umb.cs681.hw01.MyExampleObservable" classpathref="classpath" fork="true" />
+	</target>
+	<target name="clean" depends="run">
 		<delete includeemptydirs="true">
 			<fileset dir="${bin}/edu/umb/cs681/hw01" includes="**/*" />
 		</delete>
 	</target>
+
 </project>
 
