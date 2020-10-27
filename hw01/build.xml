@@ -6,7 +6,7 @@
 
   on a shell. 
 -->
-<project name="hw01" basedir="." default="clean">
+<project name="hw01" basedir="." default="run">
 	<property environment="env" />
 	<echo message="JUNIT: ${env.JUNIT}" />
 	<echo message="ANT_HOME: ${env.ANT_HOME}" />
@@ -22,19 +22,19 @@
 	<target name="init">
 		<mkdir dir="${bin}" />
 	</target>
-	<target name="compile" depends="init">
+	<target name="clean" depends="init">
+		<delete includeemptydirs="true">
+			<fileset dir="${bin}" includes="**/*" />
+		</delete>
+	</target>
+	<target name="compile" depends="clean">
 		<javac srcdir="${src}" destdir="${bin}" includeAntRuntime="no">
 			<classpath refid="classpath" />
+			<include name="edu/umb/cs681/hw01/*.java" />
 		</javac>
 	</target>
 	<target name="run" depends="compile">
 		<java classname="edu.umb.cs681.hw01.MyExampleObservable" classpathref="classpath" fork="true" />
 	</target>
-	<target name="clean" depends="run">
-		<delete includeemptydirs="true">
-			<fileset dir="${bin}/edu/umb/cs681/hw01" includes="**/*" />
-		</delete>
-	</target>
-
 </project>
 
